@@ -13,6 +13,7 @@ class PlayState extends FlxState
 
 	var dialogueBox:FlxSprite = new FlxSprite();
 	var dialogueText:FlxText = new FlxText();
+	var dialogue_currentPage:Int = 0;
 
 	override public function create()
 	{
@@ -23,7 +24,8 @@ class PlayState extends FlxState
 		dialogueBox.y = FlxG.height - dialogueBox.height - 16;
 		add(dialogueBox);
 
-		dialogueText.text = dialogueFile.pages[dialogueFile.first_page - 1].dialogue;
+		dialogue_currentPage = dialogueFile.first_page - 1;
+		dialogueText.text = dialogueFile.pages[dialogue_currentPage].dialogue;
 		dialogueText.size = 16;
 		dialogueText.color = 0x000000;
 		dialogueText.setPosition(dialogueBox.x, dialogueBox.y);
@@ -36,6 +38,18 @@ class PlayState extends FlxState
 
 	override public function update(elapsed:Float)
 	{
+		if (FlxG.keys.justReleased.SPACE)
+		{
+			try
+			{
+				dialogue_currentPage = dialogueFile.pages[dialogue_currentPage].next_page - 1;
+			}
+			catch (e) {}
+		}
+
+		if (dialogueText.text != dialogueFile.pages[dialogue_currentPage].dialogue)
+			dialogueText.text = dialogueFile.pages[dialogue_currentPage].dialogue;
+
 		super.update(elapsed);
 	}
 }

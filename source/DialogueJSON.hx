@@ -7,4 +7,5 @@ typedef DialogueJSON =
 typedef Page =
 {
 	var dialogue:String;
+	var ?next_page:Int;
 }
