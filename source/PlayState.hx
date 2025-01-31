@@ -16,9 +16,9 @@ class PlayState extends FlxState
 	{
 		dialogueFile = FileManager.getJSON(FileManager.getDataFile('dummy.json'));
 
-		dialogueBox.makeGraphic(Std.int(FlxG.width / 2), Std.int(FlxG.height / 2));
+		dialogueBox.makeGraphic(Std.int(FlxG.width / 1.05), Std.int(FlxG.height / 2));
 		dialogueBox.screenCenter();
-		dialogueBox.y -= dialogueBox.height / 2;
+		dialogueBox.y += dialogueBox.height / 2;
 		add(dialogueBox);
 
 		super.create();
