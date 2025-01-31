@@ -6,6 +6,5 @@ typedef DialogueJSON =
 
 typedef Page =
 {
-	var page:Int;
 	var dialogue:String;
 }
