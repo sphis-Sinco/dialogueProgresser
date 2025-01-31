@@ -18,7 +18,7 @@ class PlayState extends FlxState
 
 		dialogueBox.makeGraphic(Std.int(FlxG.width / 1.05), Std.int(FlxG.height / 2));
 		dialogueBox.screenCenter();
-		dialogueBox.y += dialogueBox.height / 2;
+		dialogueBox.y = FlxG.height - dialogueBox.height - 16;
 		add(dialogueBox);
 
 		super.create();
