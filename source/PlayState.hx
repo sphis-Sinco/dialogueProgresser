@@ -60,7 +60,7 @@ class PlayState extends FlxState
 
 			if (nextFile != null)
 			{
-				trace(nextFile);
+				trace('MOVING TO $nextFile.json');
 				dialogue_currentPage = getDialoguePage(dialogue_currentPage).next_page - 1;
 				dialogueFile = FileManager.getJSON(FileManager.getDataFile('${nextFile}.json'));
 				dialogueText.text = getDialoguePage(dialogue_currentPage).dialogue;
