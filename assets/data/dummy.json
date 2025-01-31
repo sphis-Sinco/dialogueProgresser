@@ -18,7 +18,9 @@
             "next_page": 5
         },
         {
-            "dialogue": "THE CREATURE"
+            "dialogue": "THE CREATURE",
+            "next_file": "dummy2",
+            "next_page": 1
         }
     ]
 }

@@ -8,4 +8,5 @@ typedef Page =
 {
 	var dialogue:String;
 	var ?next_page:Int;
+	var ?next_file:String;
 }

@@ -26,7 +26,7 @@ class PlayState extends FlxState
 	{
 		if (FlxG.keys.justReleased.SPACE)
 		{
-			updateDialogueText();
+			dialogueProceed();
 		}
 
 		super.update(elapsed);
@@ -49,16 +49,65 @@ class PlayState extends FlxState
 		dialogueText.fieldWidth = dialogueBox.width;
 		dialogueText.fieldHeight = dialogueBox.height;
 		add(dialogueText);
-		updateDialogueText();
+		dialogueText.text = getDialoguePage(dialogue_currentPage).dialogue;
 	}
 
-	public function updateDialogueText()
+	public function dialogueProceed()
+	{
+		tryCatch(() ->
+		{
+			var nextFile = getDialoguePage(dialogue_currentPage).next_file;
+
+			if (nextFile != null)
+			{
+				trace(nextFile);
+				dialogue_currentPage = getDialoguePage(dialogue_currentPage).next_page - 1;
+				dialogueFile = FileManager.getJSON(FileManager.getDataFile('${nextFile}.json'));
+				dialogueText.text = getDialoguePage(dialogue_currentPage).dialogue;
+
+				return;
+			}
+		}, null, true);
+
+		var prevPage = dialogue_currentPage;
+
+		tryCatch(() ->
+		{
+			dialogue_currentPage = getDialoguePage(dialogue_currentPage).next_page - 1;
+		}, () ->
+			{
+				{
+					dialogue_currentPage = prevPage;
+				}
+			});
+
+		tryCatch(() ->
+		{
+			dialogueText.text = getDialoguePage(dialogue_currentPage).dialogue;
+		});
+	}
+
+	public function getDialoguePage(num:Int)
+	{
+		return dialogueFile.pages[num];
+	}
+
+	public function tryCatch(func:Dynamic, ?errFunc:Dynamic, ?traceErr:Bool = false)
 	{
 		try
 		{
-			dialogue_currentPage = dialogueFile.pages[dialogue_currentPage].next_page - 1;
-			dialogueText.text = dialogueFile.pages[dialogue_currentPage].dialogue;
+			func();
 		}
-		catch (e) {}
+		catch (e)
+		{
+			if (traceErr)
+				trace(e);
+
+			try
+			{
+				errFunc();
+			}
+			catch (e) {}
+		}
 	}
 }
