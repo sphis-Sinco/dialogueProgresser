@@ -67,7 +67,7 @@ class PlayState extends FlxState
 
 				return;
 			}
-		}, null, true);
+		});
 
 		var prevPage = dialogue_currentPage;
 
